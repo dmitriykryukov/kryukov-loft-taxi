@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react';
+
 import './App.css';
 import { ThemeProvider } from '@material-ui/core';
 
@@ -9,8 +10,14 @@ import Login from './layouts/LoginPage'
 import Map from './layouts/MapPage'
 
 function App() {
-  return (
 
+const [isAuthorized, setAuthorized] = useState(false)
+
+const toggleOnLogin = () => {
+  setAuthorized(true)
+}
+
+  return (
     <ThemeProvider theme={ theme}>
       <div className="App">
         {!isAuthorized && <Login onLogin={toggleOnLogin}/>}
