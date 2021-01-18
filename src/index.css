@@ -14,11 +14,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.wrapper {
-  overflow: hidden;
-  min-height: 100%;
-  position: relative;
-}
+
 
 
 .container {
