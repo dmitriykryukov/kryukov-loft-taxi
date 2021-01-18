@@ -8,30 +8,21 @@ import styles from '../assets/jss/FormStyles.js'
 
 const useStyles = makeStyles(styles);
 
-export default function LoginForm(props) {
+export default function RegisterForm(props) {
   const { onLogin, toggleForm } = props
-  
   const classes = useStyles();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   function handleSubmit(event) {
     event.preventDefault()
     onLogin()
-
-    // if(email.length > 0 && password.length > 0){
-    //   onLogin()
-    // } else {
-    //   alert('Заполните форму!!!');
-    //   }
     
   }
 
   return (
     <div className={classes.container}>
         <Typography component="h1" variant="h4" className={classes.title}>
-          Войти
+        Регистрация
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
@@ -39,13 +30,33 @@ export default function LoginForm(props) {
             required
             fullWidth
             id="email"
-            label="Имя пользователя"
+            label="Адрес электронной почты"
             name="email"
-            autoComplete="email"
             autoFocus
-            placeholder='mail@mail.ru'
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={() => {}}
           />
+          <div className={ classes.user} >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="firstName"
+            label="Имя"
+            id="name"
+            onChange={() => {}}
+          />
+          <div style ={{minWidth: '8px'}}></div>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="lastName"
+            label="Фамилия"
+            id="lastName"
+            onChange={() => {}}
+          />
+
+          </div>
           <TextField
             margin="normal"
             required
@@ -54,9 +65,7 @@ export default function LoginForm(props) {
             label="Пароль"
             type="password"
             id="password"
-            autoComplete="current-password"
-            placeholder='***********'
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={() => {}}
           />
           <Button
             type="submit"
@@ -67,15 +76,15 @@ export default function LoginForm(props) {
             className={classes.submit}
             disableElevation
           >
-            Войти
+            Зарегистрироваться
           </Button>
         </form>
         <Typography variant='body1' className={ classes.newUser }>
-             Новый пользователь? 
-              <Link onClick={ () => { toggleForm()} } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
-              Зарегистрируйтесь
-              </Link>
-          </Typography>
+            Уже зарегистрирован? 
+            <Link  onClick={ () => { toggleForm() } } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+            Войти
+            </Link>
+        </Typography>
     </div>
   )
 }
