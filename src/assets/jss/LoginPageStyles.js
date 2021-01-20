@@ -13,7 +13,7 @@ export default () => {
               display: 'flex',
             },
             leftSide: {
-              backgroundColor: colors.backgrnd,
+              backgroundColor: colors.backgroundColor,
               width: '34%',
               height: '100%',
               position: 'relative',

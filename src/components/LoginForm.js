@@ -8,8 +8,7 @@ import styles from '../assets/jss/FormStyles.js'
 
 const useStyles = makeStyles(styles);
 
-export default function LoginForm(props) {
-  const { onLogin, toggleForm } = props
+export default function LoginForm( props ) {
   
   const classes = useStyles();
 
@@ -17,9 +16,7 @@ export default function LoginForm(props) {
   const [password, setPassword] = useState('');
 
   function handleSubmit(event) {
-    event.preventDefault()
-    onLogin()
-
+    // TODO validation fieltd and submit
     // if(email.length > 0 && password.length > 0){
     //   onLogin()
     // } else {
@@ -33,7 +30,7 @@ export default function LoginForm(props) {
         <Typography component="h1" variant="h4" className={classes.title}>
           Войти
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate onSubmit={ () => props.switchLayout('main') }>
           <TextField
             margin="normal"
             required
@@ -44,7 +41,7 @@ export default function LoginForm(props) {
             autoComplete="email"
             autoFocus
             placeholder='mail@mail.ru'
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -56,7 +53,7 @@ export default function LoginForm(props) {
             id="password"
             autoComplete="current-password"
             placeholder='***********'
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="submit"
@@ -72,7 +69,7 @@ export default function LoginForm(props) {
         </form>
         <Typography variant='body1' className={ classes.newUser }>
              Новый пользователь? 
-              <Link onClick={ () => { toggleForm()} } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+              <Link onClick={ () => {props.toggleForm('register')} } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
               Зарегистрируйтесь
               </Link>
           </Typography>

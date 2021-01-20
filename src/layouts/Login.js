@@ -13,14 +13,22 @@ import styles from '../assets/jss/LoginPageStyles.js'
 const useStyles = makeStyles(styles);
 
 export default function Login(props) {
-  const { onLogin } = props
 
-  const [isLogin, setLogin] = useState(true);
-
-  const toggleForm = () => {
-    setLogin(!isLogin)
+  const [onForm, setOnForm] = useState('login');
+  
+  const FORMS = {
+    login: <LoginForm 
+              toggleForm={(form) => toggleForm(form)}
+              switchLayout = {(layout) => props.switchLayout(layout) }
+            />,
+    register: <RegisterForm 
+              toggleForm={(form) => toggleForm(form)}
+              switchLayout = {(layout) => props.switchLayout(layout) }
+            />
   }
-
+  const toggleForm = (form) => {
+    setOnForm(form)
+  }
 
   const classes = useStyles();
 
@@ -31,12 +39,7 @@ export default function Login(props) {
       </div>
       <div className={classes.rightSide} >
           <Paper className={classes.card} elevation={5} >
-            { isLogin && 
-            <LoginForm onLogin={onLogin} toggleForm={toggleForm}/>
-             }
-            { !isLogin && 
-            <RegisterForm onLogin={onLogin} toggleForm={toggleForm}/>
-             }
+          <section>{FORMS[onForm]}</section>
           </Paper>
       </div>
     </div>

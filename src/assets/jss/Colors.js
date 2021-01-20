@@ -8,7 +8,7 @@ export const colors = {
   // Secondary
   grey: '#828282',
 
-  backgrnd: '#1C1A19',
+  backgroundColor: '#1C1A19',
 
   // Semantiv colors
   success: '#46B366',

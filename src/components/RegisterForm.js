@@ -9,22 +9,14 @@ import styles from '../assets/jss/FormStyles.js'
 const useStyles = makeStyles(styles);
 
 export default function RegisterForm(props) {
-  const { onLogin, toggleForm } = props
   const classes = useStyles();
-
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    onLogin()
-    
-  }
 
   return (
     <div className={classes.container}>
         <Typography component="h1" variant="h4" className={classes.title}>
         Регистрация
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate onSubmit={() => props.switchPage('main')}>
           <TextField
             margin="normal"
             required
@@ -81,7 +73,7 @@ export default function RegisterForm(props) {
         </form>
         <Typography variant='body1' className={ classes.newUser }>
             Уже зарегистрирован? 
-            <Link  onClick={ () => { toggleForm() } } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+            <Link  onClick={ () => props.toggleForm('login')  } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
             Войти
             </Link>
         </Typography>

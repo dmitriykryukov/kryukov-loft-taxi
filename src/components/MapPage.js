@@ -14,8 +14,8 @@ export default function MapPage() {
 
   const classes = useStyles();
 
-  const [isAddressFrom, setAddressFrom] = React.useState('');
-  const [isAddressTo, setAddressTo] = React.useState('');
+  const [addressFrom, setAddressFrom] = React.useState('');
+  const [addressTo, setAddressTo] = React.useState('');
 
   const handleChangeFrom = (event) => {
     setAddressFrom(event.target.value);
@@ -23,6 +23,8 @@ export default function MapPage() {
   const handleChangeTo = (event) => {
     setAddressTo(event.target.value);
   };
+
+  const ROUTES = ['Пулково (LED)', 'Эрмитаж', 'Кинотеатр Аврора', 'Мариинский театр' ]
 
   return (
       <Container maxWidth='lg' className={classes.container}>
@@ -33,13 +35,10 @@ export default function MapPage() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={isAddressFrom}
+                value={addressFrom}
                 onChange={handleChangeFrom}
               >
-                <MenuItem value={'Пулково'}>Пулково (LED)</MenuItem>
-                <MenuItem value={'Эрмитаж'}>Эрмитаж</MenuItem>
-                <MenuItem value={'Кинотеатр Аврора'}>Кинотеатр Аврора</MenuItem>
-                <MenuItem value={'Мариинский театр'}>Мариинский театр</MenuItem>
+                {ROUTES.map(route =>  <MenuItem >{route}</MenuItem>) }
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -47,13 +46,10 @@ export default function MapPage() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={isAddressTo}
+                value={addressTo}
                 onChange={handleChangeTo}
               >
-                <MenuItem value={'Пулково'}>Пулково (LED)</MenuItem>
-                <MenuItem value={'Эрмитаж'}>Эрмитаж</MenuItem>
-                <MenuItem value={'Кинотеатр Аврора'}>Кинотеатр Аврора</MenuItem>
-                <MenuItem value={'Мариинский театр'}>Мариинский театр</MenuItem>
+                {ROUTES.map(route =>  <MenuItem >{route}</MenuItem>) }
               </Select>
             </FormControl>
           </Container>
