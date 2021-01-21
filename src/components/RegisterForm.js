@@ -16,7 +16,7 @@ export default function RegisterForm(props) {
         <Typography component="h1" variant="h4" className={classes.title}>
         Регистрация
         </Typography>
-        <form className={classes.form} noValidate onSubmit={() => props.switchPage('main')}>
+        <form className={classes.form} noValidate onSubmit={() => props.switchLayout('main') }>
           <TextField
             margin="normal"
             required

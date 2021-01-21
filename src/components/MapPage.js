@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { makeStyles } from "@material-ui/core/styles";
 import styles from '../assets/jss/MapPageStyles.js'
@@ -38,7 +38,7 @@ export default function MapPage() {
                 value={addressFrom}
                 onChange={handleChangeFrom}
               >
-                {ROUTES.map(route =>  <MenuItem >{route}</MenuItem>) }
+                {ROUTES.map((route, key) =>  <MenuItem key={key} >{route}</MenuItem>) }
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -49,7 +49,7 @@ export default function MapPage() {
                 value={addressTo}
                 onChange={handleChangeTo}
               >
-                {ROUTES.map(route =>  <MenuItem >{route}</MenuItem>) }
+                {ROUTES.map((route, key) =>  <MenuItem key={key} >{route}</MenuItem>) }
               </Select>
             </FormControl>
           </Container>
