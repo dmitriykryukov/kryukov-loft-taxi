@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import AuthContext from '../AuthContext'
+
 import Header from '../components/Header'
 import { makeStyles } from "@material-ui/core/styles";
 import styles from '../assets/jss/MainPageStyles.js'
@@ -13,16 +15,22 @@ export default function Main() {
 
   const classes = useStyles();
 
-  const [layout , setLayout] = useState('login');
   const [currentPage , setCurrentPage ] = useState('map');
 
-  const switchLayout = (layout) => {
-    setLayout(layout)
-    setCurrentPage('map')
+  const [isLoggedIn , setLoggedIn ] = useState(false);
+
+
+  const togglePage = (page) => {
+    setCurrentPage(page)
   }
 
-  const tooglePage = (page) => {
-    setCurrentPage(page)
+  const logIn = ( email, password) => {
+      setLoggedIn(true)
+      console.log(email + ' ' + password)
+  }
+
+  const logOut = () => {
+      setLoggedIn(false)
   }
 
   const PAGES = {
@@ -32,24 +40,23 @@ export default function Main() {
 
   const mainPage = (
     <div className={ classes.wrapper}>
-      <Header
-          tooglePage = {(page) => tooglePage(page)}
-          switchLayout = {(layout) => switchLayout(layout)}  />
+      <Header />
       <div className={classes.main}>
         {PAGES[currentPage]}
       </div>
     </div>
   )
 
-  const LAYOUTS = {
-    main: mainPage,
-    login: <LoginPage switchLayout = {(layout) => switchLayout(layout)}/>
-  }
-    
   return (
-    <>
-    { LAYOUTS[layout] }
-    </>
+    <AuthContext.Provider
+    value = {{
+      login: logIn,
+      logout: logOut,
+      togglepage: togglePage,
+      isLoggedIn
+    }}>
+      { isLoggedIn ? mainPage : <LoginPage/> }
+    </AuthContext.Provider>
   )
 }
 

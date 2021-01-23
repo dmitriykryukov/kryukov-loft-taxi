@@ -1,22 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 
 //  @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, TextField, Button, Link } from '@material-ui/core';
 
 import styles from '../assets/jss/FormStyles.js'
+import AuthContext from '../AuthContext.js';
 
 const useStyles = makeStyles(styles);
 
 export default function RegisterForm(props) {
   const classes = useStyles();
 
+  const { login } = useContext(AuthContext)
+
   return (
     <div className={classes.container}>
         <Typography component="h1" variant="h4" className={classes.title}>
         Регистрация
         </Typography>
-        <form className={classes.form} noValidate onSubmit={() => props.switchLayout('main') }>
+        <form className={classes.form} noValidate onSubmit={() => login() }>
           <TextField
             margin="normal"
             required
@@ -79,4 +83,9 @@ export default function RegisterForm(props) {
         </Typography>
     </div>
   )
+}
+
+
+RegisterForm.propTypes = {
+  toggleForm: PropTypes.func.isRequired
 }

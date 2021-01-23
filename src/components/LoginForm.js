@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import PropTypes from "prop-types"
+
 
 //  @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, TextField, Button, Link } from '@material-ui/core';
+import AuthContext from '../AuthContext.js';
 
 import styles from '../assets/jss/FormStyles.js'
 
@@ -12,16 +15,18 @@ export default function LoginForm( props ) {
   
   const classes = useStyles();
 
+  const { login } = useContext(AuthContext)
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function handleSubmit(event) {
     // TODO validation fieltd and submit
-    // if(email.length > 0 && password.length > 0){
-    //   onLogin()
-    // } else {
-    //   alert('Заполните форму!!!');
-    //   }
+    if(email.length > 0 && password.length > 0){
+      login(email, password)
+    } else {
+      alert('Заполните форму!!!');
+      }
     
   }
 
@@ -30,7 +35,7 @@ export default function LoginForm( props ) {
         <Typography component="h1" variant="h4" className={classes.title}>
           Войти
         </Typography>
-        <form className={classes.form} noValidate onSubmit={ () => props.switchLayout('main') }>
+        <form className={classes.form} noValidate onSubmit={ () => handleSubmit() }>
           <TextField
             margin="normal"
             required
@@ -75,4 +80,8 @@ export default function LoginForm( props ) {
           </Typography>
     </div>
   )
+}
+
+LoginForm.propTypes = {
+  toggleForm: PropTypes.func.isRequired
 }
