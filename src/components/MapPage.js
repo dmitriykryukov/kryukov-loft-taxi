@@ -1,8 +1,11 @@
 import React from 'react'
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles"
 import styles from '../assets/jss/MapPageStyles.js'
-import { Container, Paper, FormControl, InputLabel, Select, MenuItem, Typography, CardMedia, Button } from '@material-ui/core';
+import { Container, Paper, FormControl, InputLabel, Select, MenuItem, Typography, CardMedia, Button } from '@material-ui/core'
+import Mapbox from './Mapbox'
+
+
 
 import standart from '../assets/images/standart.jpg'
 import business from '../assets/images/business.jpg'
@@ -17,10 +20,10 @@ export default function MapPage() {
   const [addressFrom, setAddressFrom] = React.useState('');
   const [addressTo, setAddressTo] = React.useState('');
 
-  const handleChangeFrom = (event) => {
+  const handleChangeFrom = event => {
     setAddressFrom(event.target.value);
   };
-  const handleChangeTo = (event) => {
+  const handleChangeTo = event=> {
     setAddressTo(event.target.value);
   };
 
@@ -38,6 +41,8 @@ export default function MapPage() {
    ]
 
   return (
+    <div className= {classes.wrapper}>
+      <Mapbox/>
       <Container maxWidth='lg' className={classes.container}>
         <Paper className={classes.paper} elevation={1}>
           <Container className={classes.inputField}>
@@ -94,6 +99,8 @@ export default function MapPage() {
           </Button>
         </Paper>
       </Container>
+    </div>
+
   )
 }
 

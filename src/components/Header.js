@@ -1,22 +1,19 @@
-import React, { useContext } from 'react'
+import React, { Component } from 'react'
 import PropTypes from "prop-types"
 
-import { Paper, AppBar, Toolbar, Button } from '@material-ui/core';
+import { Paper, AppBar, Toolbar, Button } from '@material-ui/core'
 import logo from '../assets/images/small_Logo.svg'
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles"
 import styles from '../assets/jss/HeaderStyles.js'
-import AuthContext from '../AuthContext.js';
+// import AuthContext from '../AuthContext.js'
 
+import { withAuth } from '../AuthContext'
 
-const useStyles = makeStyles(styles);
+export class Header extends Component {
 
-export default function Header( props ) {
-
-  const classes = useStyles();
-
-  const { logout, togglepage } = useContext(AuthContext)
-
-  return (
+  render() {
+    const { classes } = this.props
+    return (
       <Paper elevation={0} >
           <AppBar position="static" color='secondary'>
             <Toolbar className={classes.head}>
@@ -26,25 +23,35 @@ export default function Header( props ) {
               <Button
                 color="inherit"
                 className={classes.button}
-                style= {{ color: '#FDBF5A' }}
-                onClick={ () => togglepage('map') } >
+                // style= {{ color: '#FDBF5A' }}
+                onClick={ () => this.props.togglePage('map') } >
                 Карта
               </Button>
               <Button
                 color="inherit"
                 className={classes.button}
-                onClick={ () => togglepage('profile')} >
+                onClick={ () => this.props.togglePage('profile')} >
                 Профиль
               </Button>
               <Button
                 color="inherit"
                 className={classes.button}
-                onClick={ () => { logout() } } >
+                onClick={ () => { this.props.logOut() } } >
                 Выйти
               </Button>
             </Toolbar>
           </AppBar>
       </Paper>
-  )
+    ) 
+  }
 }
+
+
+Header.propTypes = {
+  currentPage: PropTypes.string,
+  logOut: PropTypes.func,
+  togglePage: PropTypes.func,
+}
+
+export default withStyles(styles)(withAuth(Header))
 

@@ -1,63 +1,49 @@
-import React, { useState } from 'react'
-
-import AuthContext from '../AuthContext'
+import React, { Component } from 'react'
+import PropTypes from "prop-types"
+import { withAuth } from '../AuthContext'
 
 import Header from '../components/Header'
-import { makeStyles } from "@material-ui/core/styles";
+import MapPage from '../components/MapPage'
+import ProfilePage from '../components/ProfilePage'
+import Login from './Login'
+
+import { withStyles } from '@material-ui/styles'
 import styles from '../assets/jss/MainPageStyles.js'
-import MapPage from '../components/MapPage';
-import ProfilePage from '../components/ProfilePage';
-import LoginPage from './Login';
-
-const useStyles = makeStyles(styles);
-
-export default function Main() {
-
-  const classes = useStyles();
-
-  const [currentPage , setCurrentPage ] = useState('map');
-
-  const [isLoggedIn , setLoggedIn ] = useState(false);
 
 
-  const togglePage = (page) => {
-    setCurrentPage(page)
+ class Main extends Component {
+
+  render() {
+
+      const { classes } = this.props
+
+      const PAGES = {
+        map: <MapPage/>,
+        profile: <ProfilePage/>,
+        login: <Login/>
+      }
+
+    return (
+      this.props.isLoggedIn
+      ? <div className={ classes.wrapper}>
+          <Header />
+          <div className={classes.main}>
+          {PAGES[this.props.currentPage]}
+          </div>
+        </div>
+    : PAGES['login']
+  
+    )
   }
-
-  const logIn = ( email, password) => {
-      setLoggedIn(true)
-      console.log(email + ' ' + password)
-  }
-
-  const logOut = () => {
-      setLoggedIn(false)
-  }
-
-  const PAGES = {
-    map: <MapPage/>,
-    profile: <ProfilePage/>,
-  }
-
-  const mainPage = (
-    <div className={ classes.wrapper}>
-      <Header />
-      <div className={classes.main}>
-        {PAGES[currentPage]}
-      </div>
-    </div>
-  )
-
-  return (
-    <AuthContext.Provider
-    value = {{
-      login: logIn,
-      logout: logOut,
-      togglepage: togglePage,
-      isLoggedIn
-    }}>
-      { isLoggedIn ? mainPage : <LoginPage/> }
-    </AuthContext.Provider>
-  )
 }
 
+Main.propTypes = {
+  currentPage: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
+  logIn: PropTypes.func,
+  logOut: PropTypes.func,
+  togglePage: PropTypes.func,
+}
+
+export default withStyles(styles)(withAuth(Main))
 
