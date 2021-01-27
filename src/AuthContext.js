@@ -4,8 +4,6 @@ export const AuthContext = React.createContext({})
 
 export const AuthProvider = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [currentPage , setCurrentPage ] = useState('map');
-
 
   const logIn = (email, password) => {
     setIsLoggedIn(true)
@@ -18,12 +16,8 @@ export const AuthProvider = ({children}) => {
     setIsLoggedIn(false)
   }
 
-  const togglePage = (page) => {
-    setCurrentPage(page)
-  }
-
   return (
-    <AuthContext.Provider value={{ logIn, logOut, isLoggedIn, currentPage, togglePage }}>
+    <AuthContext.Provider value={{ logIn, logOut, isLoggedIn}}>
       {children}
     </AuthContext.Provider>
   )

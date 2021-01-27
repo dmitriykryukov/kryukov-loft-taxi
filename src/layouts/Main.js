@@ -11,24 +11,28 @@ import { withStyles } from '@material-ui/styles'
 import styles from '../assets/jss/MainPageStyles.js'
 
 
- class Main extends Component {
+const PAGES = {
+  map: <MapPage/>,
+  profile: <ProfilePage/>,
+  login: <Login/>
+}
+
+class Main extends Component {
+   state = { currentPage: 'map'}
+ 
+
+  togglePage = (page) => {
+    this.setState( { currentPage: page} )
+  }
 
   render() {
-
-      const { classes } = this.props
-
-      const PAGES = {
-        map: <MapPage/>,
-        profile: <ProfilePage/>,
-        login: <Login/>
-      }
-
+    const { classes } = this.props
     return (
       this.props.isLoggedIn
       ? <div className={ classes.wrapper}>
-          <Header />
+          <Header togglePage={(page) => this.togglePage(page)} />
           <div className={classes.main}>
-          {PAGES[this.props.currentPage]}
+          {PAGES[this.state.currentPage]}
           </div>
         </div>
     : PAGES['login']
@@ -38,12 +42,9 @@ import styles from '../assets/jss/MainPageStyles.js'
 }
 
 Main.propTypes = {
-  currentPage: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  logIn: PropTypes.func,
-  logOut: PropTypes.func,
-  togglePage: PropTypes.func,
 }
 
 export default withStyles(styles)(withAuth(Main))
+
 

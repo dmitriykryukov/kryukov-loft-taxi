@@ -16,7 +16,7 @@ class Mapbox extends Component {
       container: this.mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v9',
       center: [30.3056504, 59.9429126],
-      zomm: 10
+      zoom: 10
     }) 
   }
 
@@ -28,9 +28,7 @@ class Mapbox extends Component {
   render() {
   const { classes } = this.props
     return (
-      <div className={classes.mapWrapper}>
         <div data-testid='map' className={classes.map} ref={this.mapContainer}/>
-      </div>
     )
   }
 }

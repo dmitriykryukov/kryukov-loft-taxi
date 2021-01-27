@@ -12,7 +12,7 @@ import { withAuth } from '../AuthContext'
 export class Header extends Component {
 
   render() {
-    const { classes } = this.props
+    const { classes, togglePage } = this.props
     return (
       <Paper elevation={0} >
           <AppBar position="static" color='secondary'>
@@ -24,13 +24,13 @@ export class Header extends Component {
                 color="inherit"
                 className={classes.button}
                 // style= {{ color: '#FDBF5A' }}
-                onClick={ () => this.props.togglePage('map') } >
+                onClick={ () => togglePage('map') } >
                 Карта
               </Button>
               <Button
                 color="inherit"
                 className={classes.button}
-                onClick={ () => this.props.togglePage('profile')} >
+                onClick={ () => togglePage('profile')} >
                 Профиль
               </Button>
               <Button
@@ -48,7 +48,6 @@ export class Header extends Component {
 
 
 Header.propTypes = {
-  currentPage: PropTypes.string,
   logOut: PropTypes.func,
   togglePage: PropTypes.func,
 }
