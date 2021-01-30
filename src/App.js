@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <ThemeProvider theme={ theme}>
         <AuthProvider>
-            <Main/>
+            <Main />
         </AuthProvider>
       </ThemeProvider>
     )

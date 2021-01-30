@@ -68,13 +68,18 @@ export default function RegisterForm(props) {
             size="large"
             className={classes.submit}
             disableElevation
+            data-testid='onRegister'
           >
             Зарегистрироваться
           </Button>
         </form>
         <Typography variant='body1' className={ classes.newUser }>
             Уже зарегистрирован? 
-            <Link  onClick={ () => props.toggleForm('login')  } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+            <Link
+              onClick={ () => props.toggleForm('login') }
+              style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}
+              data-testid='onLoginPage'
+            >
             Войти
             </Link>
         </Typography>

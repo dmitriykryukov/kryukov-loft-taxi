@@ -49,7 +49,7 @@ describe("AuthContext", () => {
       )
 
       act(() => {
-        logIn("valid@email.com", "123")
+        logIn("valid@email.com", "correctpassword")
         logOut()
       })
 
