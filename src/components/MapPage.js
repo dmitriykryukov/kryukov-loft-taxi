@@ -1,8 +1,11 @@
 import React from 'react'
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles"
 import styles from '../assets/jss/MapPageStyles.js'
-import { Container, Paper, FormControl, InputLabel, Select, MenuItem, Typography, CardMedia, Button } from '@material-ui/core';
+import { Container, Paper, FormControl, InputLabel, Select, MenuItem, Typography, CardMedia, Button } from '@material-ui/core'
+import Mapbox from './Mapbox'
+
+
 
 import standart from '../assets/images/standart.jpg'
 import business from '../assets/images/business.jpg'
@@ -17,16 +20,29 @@ export default function MapPage() {
   const [addressFrom, setAddressFrom] = React.useState('');
   const [addressTo, setAddressTo] = React.useState('');
 
-  const handleChangeFrom = (event) => {
+  const handleChangeFrom = event => {
     setAddressFrom(event.target.value);
   };
-  const handleChangeTo = (event) => {
+  const handleChangeTo = event=> {
     setAddressTo(event.target.value);
   };
 
-  const ROUTES = ['Пулково (LED)', 'Эрмитаж', 'Кинотеатр Аврора', 'Мариинский театр' ]
+  const ROUTES = [
+    { name: 'Пулково (LED)', id: 0 },
+    { name: 'Эрмитаж', id: 1 },
+    { name: 'Кинотеатр Аврора', id: 2 },
+    { name: 'Мариинский театр', id: 3}
+   ]
+
+  const PLANS = [
+    { name: 'Стандарт', price: '150P', image: standart, id: 0 },
+    { name: 'Бизнес', price: '250P', image: business, id: 1 },
+    { name: 'Премиум', price: '350P', image: premium, id: 2 },
+   ]
 
   return (
+    <div className= {classes.wrapper}>
+      <Mapbox/>
       <Container maxWidth='lg' className={classes.container}>
         <Paper className={classes.paper} elevation={1}>
           <Container className={classes.inputField}>
@@ -38,7 +54,7 @@ export default function MapPage() {
                 value={addressFrom}
                 onChange={handleChangeFrom}
               >
-                {ROUTES.map((route, key) =>  <MenuItem key={key} >{route}</MenuItem>) }
+                {ROUTES.map((route) =>  <MenuItem key={route.id} >{route.name}</MenuItem>) }
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -49,43 +65,26 @@ export default function MapPage() {
                 value={addressTo}
                 onChange={handleChangeTo}
               >
-                {ROUTES.map((route, key) =>  <MenuItem key={key} >{route}</MenuItem>) }
+               {ROUTES.map((route) =>  <MenuItem key={route.id} >{route.name}</MenuItem>) }
               </Select>
             </FormControl>
           </Container>
         </Paper>
         <Paper className={classes.paperPlan}>
           <div className={classes.planItems}>
-            <div className={classes.card}>
-                <Typography variant='body1'>Стандарт</Typography>
-                <Typography variant='caption' className={classes.price}>Стоимость</Typography>
-                <Typography variant='h6'style={{ lineHeight: '0.8'}}>150P</Typography>
-                <CardMedia
-                    className={classes.media}
-                    image={standart}
-                    title="Standart"
-                />
-            </div>
-            <div className={classes.card}>
-                <Typography variant='body1'>Бизнес</Typography>
-                <Typography variant='caption' className={classes.price}>Стоимость</Typography>
-                <Typography variant='h6'style={{ lineHeight: '0.8'}}>250P</Typography>
-                <CardMedia
-                    className={classes.media}
-                    image={business}
-                    title="Standart"
-                />
-            </div>
-            <div className={classes.card}>
-                <Typography variant='body1'>Премиум</Typography>
-                <Typography variant='caption' className={classes.price}>Стоимость</Typography>
-                <Typography variant='h6'style={{ lineHeight: '0.8'}}>350P</Typography>
-                <CardMedia
-                    className={classes.media}
-                    image={premium}
-                    title="Standart"
-                />
-            </div>
+            {PLANS.map((plan) => 
+              <div key={plan.id} className={classes.card}>
+                  <Typography variant='body1'>{plan.name}</Typography>
+                  <Typography variant='caption' className={classes.price}>Стоимость</Typography>
+                  <Typography variant='h6'style={{ lineHeight: '0.8'}}>{plan.price}</Typography>
+                  <CardMedia
+                      className={classes.media}
+                      image={plan.image}
+                      title={plan.name}
+                  />
+              </div>
+            )
+          }
           </div>
           <Button
             type="submit"
@@ -100,6 +99,8 @@ export default function MapPage() {
           </Button>
         </Paper>
       </Container>
+    </div>
+
   )
 }
 

@@ -1,56 +1,50 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react'
+import PropTypes from "prop-types"
+import { withAuth } from '../AuthContext'
 
 import Header from '../components/Header'
-import { makeStyles } from "@material-ui/core/styles";
+import MapPage from '../components/MapPage'
+import ProfilePage from '../components/ProfilePage'
+import Login from './Login'
+
+import { withStyles } from '@material-ui/styles'
 import styles from '../assets/jss/MainPageStyles.js'
-import MapPage from '../components/MapPage';
-import ProfilePage from '../components/ProfilePage';
-import LoginPage from './Login';
 
-const useStyles = makeStyles(styles);
 
-export default function Main() {
-
-  const classes = useStyles();
-
-  const [layout , setLayout] = useState('login');
-  const [currentPage , setCurrentPage ] = useState('map');
-
-  const switchLayout = (layout) => {
-    setLayout(layout)
-    setCurrentPage('map')
-  }
-
-  const tooglePage = (page) => {
-    setCurrentPage(page)
-  }
-
-  const PAGES = {
-    map: <MapPage/>,
-    profile: <ProfilePage/>,
-  }
-
-  const mainPage = (
-    <div className={ classes.wrapper}>
-      <Header
-          tooglePage = {(page) => tooglePage(page)}
-          switchLayout = {(layout) => switchLayout(layout)}  />
-      <div className={classes.main}>
-        {PAGES[currentPage]}
-      </div>
-    </div>
-  )
-
-  const LAYOUTS = {
-    main: mainPage,
-    login: <LoginPage switchLayout = {(layout) => switchLayout(layout)}/>
-  }
-    
-  return (
-    <>
-    { LAYOUTS[layout] }
-    </>
-  )
+const PAGES = {
+  map: <MapPage/>,
+  profile: <ProfilePage/>,
+  login: <Login/>
 }
+
+class Main extends Component {
+   state = { currentPage: 'map'}
+ 
+
+  togglePage = (page) => {
+    this.setState( { currentPage: page} )
+  }
+
+  render() {
+    const { classes } = this.props
+    return (
+      this.props.isLoggedIn
+      ? <div className={ classes.wrapper}>
+          <Header togglePage={(page) => this.togglePage(page)} />
+          <div className={classes.main}>
+          {PAGES[this.state.currentPage]}
+          </div>
+        </div>
+    : PAGES['login']
+  
+    )
+  }
+}
+
+Main.propTypes = {
+  isLoggedIn: PropTypes.bool,
+}
+
+export default withStyles(styles)(withAuth(Main))
 
 

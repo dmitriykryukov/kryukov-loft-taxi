@@ -11,7 +11,6 @@ export default () => {
       main: {
         height: 'calc(100vh - 73px)',
         position: 'relative',
-        pointerEvents: 'none'
       }
       
     }

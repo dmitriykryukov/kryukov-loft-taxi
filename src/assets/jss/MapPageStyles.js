@@ -4,9 +4,16 @@ import { colors } from './Colors'
 export default () => {
   return (
     {
+      wrapper: {
+      width: '100%',
+      position: 'relative',
+      height: '100%'
+      },
       container: {
         padding: '24px',
-        position: 'absolute'
+        position: 'absolute',
+        left: 0,
+        top: 0,
       },
        paper: {
         width: '486px',

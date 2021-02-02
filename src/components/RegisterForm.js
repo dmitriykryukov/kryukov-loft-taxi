@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 //  @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,7 +17,7 @@ export default function RegisterForm(props) {
         <Typography component="h1" variant="h4" className={classes.title}>
         Регистрация
         </Typography>
-        <form className={classes.form} noValidate onSubmit={() => props.switchLayout('main') }>
+        <form className={classes.form} noValidate onSubmit={() => {console.log('TODO Registration')} }>
           <TextField
             margin="normal"
             required
@@ -67,16 +68,26 @@ export default function RegisterForm(props) {
             size="large"
             className={classes.submit}
             disableElevation
+            data-testid='onRegister'
           >
             Зарегистрироваться
           </Button>
         </form>
         <Typography variant='body1' className={ classes.newUser }>
             Уже зарегистрирован? 
-            <Link  onClick={ () => props.toggleForm('login')  } style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+            <Link
+              onClick={ () => props.toggleForm('login') }
+              style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}
+              data-testid='onLoginPage'
+            >
             Войти
             </Link>
         </Typography>
     </div>
   )
+}
+
+
+RegisterForm.propTypes = {
+  toggleForm: PropTypes.func
 }
