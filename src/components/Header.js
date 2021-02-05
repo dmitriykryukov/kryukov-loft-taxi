@@ -12,8 +12,6 @@ export class Header extends Component {
 
   render() {
     const { classes, match } = this.props
-    console.log('Match', match)
-
     return (
       <Paper elevation={0} >
           <AppBar position='static' color='secondary'>

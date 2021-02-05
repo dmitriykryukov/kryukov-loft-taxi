@@ -3,7 +3,8 @@ import React from 'react'
 import { makeStyles } from "@material-ui/core/styles"
 import styles from '../assets/jss/MapPageStyles.js'
 import { Container, Paper, FormControl, InputLabel, Select, MenuItem, Typography, CardMedia, Button } from '@material-ui/core'
-import Mapbox from './Mapbox'
+
+
 
 
 
@@ -42,7 +43,6 @@ export default function MapPage() {
 
   return (
     <div className= {classes.wrapper}>
-      <Mapbox/>
       <Container maxWidth='lg' className={classes.container}>
         <Paper className={classes.paper} elevation={1}>
           <Container className={classes.inputField}>

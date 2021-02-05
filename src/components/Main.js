@@ -6,7 +6,7 @@ import Profile from './Profile'
 import { Route } from 'react-router-dom'
 import { withStyles } from '@material-ui/styles'
 import styles from '../assets/jss/MainPageStyles.js'
-
+import Mapbox from './Mapbox'
 import { connect } from 'react-redux'
 
 class Main extends Component {
@@ -16,6 +16,7 @@ class Main extends Component {
     return (
       <div className={ classes.wrapper}>
           <Header match={match}/>
+          <Mapbox/>
           <div className={classes.main}>
             <Route
               path={`${match.path}/map`}

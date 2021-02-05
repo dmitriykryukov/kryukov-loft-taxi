@@ -5,7 +5,10 @@ export default () => {
     {
       head: {
         paddingTop: '6px',
-        paddingBottom: '6px'
+        paddingBottom: '6px',
+        '& button': {
+          textTransform: 'none'
+        }
       },
       logo: {
       flexGrow: 1
