@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types"
-
 import logo from '../assets/images/big_Logo.svg'
 import LoginForm from '../components/LoginForm'
 import RegisterForm from '../components/RegisterForm'
-import { withAuth } from '../AuthContext'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 // @material-ui/core components
 import { withStyles } from "@material-ui/core/styles"
@@ -32,26 +32,32 @@ class Login extends Component {
     }
     
     return (
-      <div className={classes.container}>
-        <div className={classes.leftSide}>
-          <img src={logo} alt='Loft-Taxi logo'/>
-        </div>
-        <div className={classes.rightSide} >
-            <Paper className={classes.card} elevation={5} >
-            <section>{FORMS[this.state.onForm]}</section>
-            </Paper>
-        </div>
-      </div>
+      <>
+        { this.props.isLoggedIn
+          ? (<Redirect to='/main/map'/>)
+        :
+        ( <div className={classes.container}>
+          <div className={classes.leftSide}>
+            <img src={logo} alt='Loft-Taxi logo'/>
+          </div>
+          <div className={classes.rightSide} >
+              <Paper className={classes.card} elevation={5} >
+              <section>{FORMS[this.state.onForm]}</section>
+              </Paper>
+          </div>
+        </div> )
+      }
+     </>
     )
   }
 }
 
 Login.propTypes = {
-  currentPage: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   logIn: PropTypes.func,
   logOut: PropTypes.func,
   togglePage: PropTypes.func,
 }
 
-export default withStyles(styles)(withAuth(Login))
+
+export const LoginWithConnect = withStyles(styles)(connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(Login))

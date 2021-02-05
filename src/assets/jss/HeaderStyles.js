@@ -10,8 +10,8 @@ export default () => {
       logo: {
       flexGrow: 1
       },
-      button: {
-        textTransform: 'none'
+      activeLink: {
+        color: colors.orange,
       }
       
     }

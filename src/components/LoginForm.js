@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types"
-import { withAuth } from '../AuthContext'
+import { connect } from 'react-redux'
+import { authenticate } from '../actions'
 
 //  @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, TextField, Button, Link } from '@material-ui/core';
-
 import styles from '../assets/jss/FormStyles.js'
 
 
@@ -16,7 +16,7 @@ class LoginForm extends Component {
     this.authenticate = (event) => {
       event.preventDefault()
       const { email, password } = event.target
-      this.props.logIn(email.value, password.value)
+      this.props.authenticate(email.value, password.value)
     }
   }
   
@@ -83,4 +83,7 @@ LoginForm.propTypes = {
   logIn: PropTypes.func,
 }
 
-export default withStyles(styles)(withAuth(LoginForm))
+export default withStyles(styles)((connect(
+  null,
+  { authenticate }
+))(LoginForm))
