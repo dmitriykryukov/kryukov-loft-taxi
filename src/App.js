@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+import PropTypes from "prop-types"
 import { ThemeProvider } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -18,11 +19,15 @@ export class App extends Component {
             <Route path="/login" component={LoginWithConnect} />
             <Redirect to='/main/map'/>
           </Switch>
-        </div>
+        </div>  
       </ThemeProvider>
     )
   }
 }
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
 
 export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(App)
 
