@@ -4,7 +4,8 @@ import logo from '../assets/images/big_Logo.svg'
 import LoginForm from '../components/LoginForm'
 import RegisterForm from '../components/RegisterForm'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { MainWithConnect } from './Main'
 
 // @material-ui/core components
 import { withStyles } from "@material-ui/core/styles"
@@ -13,28 +14,14 @@ import { Paper } from '@material-ui/core'
 import styles from '../assets/jss/LoginPageStyles.js'
 
 class Login extends Component {
-  state = { onForm: 'login'}
-
-  toggleForm = (form) => {
-    this.setState( { onForm: form} )
-  }
 
   render() {
     const { classes } = this.props
 
-    const FORMS = {
-      login: <LoginForm 
-                toggleForm={(form) => this.toggleForm(form)}
-              />,
-      register: <RegisterForm 
-                toggleForm={(form) => this.toggleForm(form)}
-              />
-    }
-    
     return (
       <>
         { this.props.isLoggedIn
-          ? (<Redirect to='/main/map'/>)
+          ? (<Redirect to='/main/map' component={MainWithConnect}/>)
         :
         ( <div className={classes.container}>
           <div className={classes.leftSide}>
@@ -42,7 +29,12 @@ class Login extends Component {
           </div>
           <div className={classes.rightSide} >
               <Paper className={classes.card} elevation={5} >
-              <section>{FORMS[this.state.onForm]}</section>
+              <section>
+              <Switch>
+                  <Route exact path={['/', '/login']} component={LoginForm} />
+                  <Route path='/registration'component={RegisterForm}/>
+              </Switch>
+              </section>
               </Paper>
           </div>
         </div> )

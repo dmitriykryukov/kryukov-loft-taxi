@@ -16,7 +16,7 @@ export class App extends Component {
         <div className='wrapper'>
           <Switch>
             <PrivateRoute  path="/main" component={MainWithConnect} />
-            <Route path="/login" component={LoginWithConnect} />
+            <Route path="/" component={LoginWithConnect} />
             <Redirect to='/main/map'/>
           </Switch>
         </div>  

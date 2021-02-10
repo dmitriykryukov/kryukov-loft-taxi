@@ -31,13 +31,13 @@ export default function ProfilePage() {
                 </form>
               </div>
               <div className={classes.cardInfo}>
-                <Paper elevation={5} rounded className={classes.card}>
+                <Paper elevation={5} className={classes.card}>
                   <div className={classes.topBottom}>
                     <img src={symbol} alt='Loft-Taxi logo'/>
                     <Typography variant='body1'>12/01</Typography>
                   </div>
                   <div >
-                    <Typography variant='body' style={{fontSize: '22px', lineHeight: 1.2}}>1234 5678 4568 1234</Typography>
+                    <Typography variant='body1' style={{fontSize: '22px', lineHeight: 1.2}}>1234 5678 4568 1234</Typography>
                   </div>
                   <div className={classes.topBottom}>
                     <img src={chip} alt='Chip'/>

@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom'
 export class Header extends Component {
 
   render() {
-    const { classes, match } = this.props
+    const { classes } = this.props
     return (
       <Paper elevation={0} >
           <AppBar position='static' color='secondary'>
@@ -20,7 +20,7 @@ export class Header extends Component {
                 <img src={logo} alt='Loft-Taxi logo'/>
               </div>
               <NavLink
-                to={`${match.url}/map`}
+                to='/main/map'
                 activeClassName = {classes.activeLink}
               >
                 <Button
@@ -29,7 +29,7 @@ export class Header extends Component {
                 </Button>
               </NavLink>
               <NavLink
-                to={`${match.url}/profile`}
+                to='/main/profile'
                 activeClassName = {classes.activeLink}
               >
                 <Button

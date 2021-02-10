@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types"
 import { connect } from 'react-redux'
 import { authenticate } from '../actions'
+import { Link as RouterLink } from 'react-router-dom'
 
 //  @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
@@ -22,7 +23,7 @@ class LoginForm extends Component {
   
 
   render() {
-  const { classes, toggleForm } = this.props
+  const { classes } = this.props
     return (
       <div className={classes.container}>
           <Typography component="h1" variant="h4" className={classes.title}>
@@ -68,10 +69,11 @@ class LoginForm extends Component {
           </form>
           <Typography variant='body1' className={ classes.newUser }>
                Новый пользователь? 
-                <Link onClick={ () => {toggleForm('register')} }
-                      style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
-                Зарегистрируйтесь
-                </Link>
+                <RouterLink
+                    to='/registration'
+                    style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+                  Зарегистрируйтесь
+                </RouterLink>
             </Typography>
       </div>
     )
