@@ -4,8 +4,12 @@ export default () => {
   return (
     {
       map: {
+        top: '73px',
+        left: 0,
+        right: 0,
         width: '100%',
-        height: 'calc(100vh - 73px)'
+        bottom: 0,
+        position: 'absolute'
         }
     }
   )}

@@ -1,41 +1,44 @@
 import React, { Component } from 'react'
-import PropTypes from "prop-types"
-
+import PropTypes from 'prop-types'
 import { Paper, AppBar, Toolbar, Button } from '@material-ui/core'
 import logo from '../assets/images/small_Logo.svg'
-import { withStyles } from "@material-ui/core/styles"
+import { withStyles } from '@material-ui/core/styles'
 import styles from '../assets/jss/HeaderStyles.js'
-// import AuthContext from '../AuthContext.js'
-
-import { withAuth } from '../AuthContext'
+import { connect } from 'react-redux'
+import { logOut } from '../actions'
+import { NavLink } from 'react-router-dom'
 
 export class Header extends Component {
 
   render() {
-    const { classes, togglePage } = this.props
+    const { classes } = this.props
     return (
       <Paper elevation={0} >
-          <AppBar position="static" color='secondary'>
+          <AppBar position='static' color='secondary'>
             <Toolbar className={classes.head}>
               <div className={classes.logo}>
                 <img src={logo} alt='Loft-Taxi logo'/>
               </div>
+              <NavLink
+                to='/main/map'
+                activeClassName = {classes.activeLink}
+              >
+                <Button
+                  color='inherit'>
+                  Карта
+                </Button>
+              </NavLink>
+              <NavLink
+                to='/main/profile'
+                activeClassName = {classes.activeLink}
+              >
+                <Button
+                  color='inherit'>
+                  Профиль
+                </Button>
+              </NavLink>
               <Button
-                color="inherit"
-                className={classes.button}
-                // style= {{ color: '#FDBF5A' }}
-                onClick={ () => togglePage('map') } >
-                Карта
-              </Button>
-              <Button
-                color="inherit"
-                className={classes.button}
-                onClick={ () => togglePage('profile')} >
-                Профиль
-              </Button>
-              <Button
-                color="inherit"
-                className={classes.button}
+                color='inherit'
                 onClick={ () => { this.props.logOut() } } >
                 Выйти
               </Button>
@@ -52,5 +55,8 @@ Header.propTypes = {
   togglePage: PropTypes.func,
 }
 
-export default withStyles(styles)(withAuth(Header))
+export default withStyles(styles)(((connect(
+  null,
+  { logOut }
+)))(Header))
 

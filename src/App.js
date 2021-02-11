@@ -1,25 +1,33 @@
 import React, { Component } from 'react'
-
 import './App.css'
+import PropTypes from "prop-types"
 import { ThemeProvider } from '@material-ui/core'
-import { withAuth } from './AuthContext'
-import { AuthProvider } from './AuthContext'
-
-
+import { connect } from 'react-redux'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { LoginWithConnect } from './components/Login'
+import { PrivateRoute } from './PrivateRoute'
+import { MainWithConnect } from './components/Main'
 import { theme } from './assets/jss/MuiThemeStyles'
 
-import Main from './layouts/Main'
-
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <ThemeProvider theme={ theme}>
-        <AuthProvider>
-            <Main />
-        </AuthProvider>
+        <div className='wrapper'>
+          <Switch>
+            <PrivateRoute  path="/main" component={MainWithConnect} />
+            <Route path="/" component={LoginWithConnect} />
+            <Redirect to='/main/map'/>
+          </Switch>
+        </div>  
       </ThemeProvider>
     )
   }
 }
 
-export default withAuth(App)
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
+
+export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(App)
+

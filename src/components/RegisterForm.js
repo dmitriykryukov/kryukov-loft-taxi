@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link as RouterLink } from 'react-router-dom'
 
 //  @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, TextField, Button, Link } from '@material-ui/core';
+import { Typography, TextField, Button } from '@material-ui/core';
 
 import styles from '../assets/jss/FormStyles.js'
 
@@ -75,13 +76,12 @@ export default function RegisterForm(props) {
         </form>
         <Typography variant='body1' className={ classes.newUser }>
             Уже зарегистрирован? 
-            <Link
-              onClick={ () => props.toggleForm('login') }
+            <RouterLink
+              to='/login'
               style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}
-              data-testid='onLoginPage'
             >
-            Войти
-            </Link>
+              Войти
+            </RouterLink>
         </Typography>
     </div>
   )

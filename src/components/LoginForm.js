@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types"
-import { withAuth } from '../AuthContext'
+import { connect } from 'react-redux'
+import { authenticate } from '../actions'
+import { Link as RouterLink } from 'react-router-dom'
 
 //  @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, TextField, Button, Link } from '@material-ui/core';
-
 import styles from '../assets/jss/FormStyles.js'
 
 
@@ -16,13 +17,13 @@ class LoginForm extends Component {
     this.authenticate = (event) => {
       event.preventDefault()
       const { email, password } = event.target
-      this.props.logIn(email.value, password.value)
+      this.props.authenticate(email.value, password.value)
     }
   }
   
 
   render() {
-  const { classes, toggleForm } = this.props
+  const { classes } = this.props
     return (
       <div className={classes.container}>
           <Typography component="h1" variant="h4" className={classes.title}>
@@ -68,10 +69,11 @@ class LoginForm extends Component {
           </form>
           <Typography variant='body1' className={ classes.newUser }>
                Новый пользователь? 
-                <Link onClick={ () => {toggleForm('register')} }
-                      style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
-                Зарегистрируйтесь
-                </Link>
+                <RouterLink
+                    to='/registration'
+                    style={{ textDecoration: 'none', color: 'rgb(253, 191, 90)'}}>
+                  Зарегистрируйтесь
+                </RouterLink>
             </Typography>
       </div>
     )
@@ -83,4 +85,7 @@ LoginForm.propTypes = {
   logIn: PropTypes.func,
 }
 
-export default withStyles(styles)(withAuth(LoginForm))
+export default withStyles(styles)((connect(
+  null,
+  { authenticate }
+))(LoginForm))
