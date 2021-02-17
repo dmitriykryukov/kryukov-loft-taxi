@@ -17,7 +17,6 @@ class Login extends Component {
 
   render() {
     const { classes } = this.props
-
     return (
       <>
         { this.props.isLoggedIn
@@ -52,4 +51,4 @@ Login.propTypes = {
 }
 
 
-export const LoginWithConnect = withStyles(styles)(connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(Login))
+  export const LoginWithConnect = withStyles(styles)(connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(Login))

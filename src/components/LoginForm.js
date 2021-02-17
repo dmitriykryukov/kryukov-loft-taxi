@@ -1,47 +1,46 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from "prop-types"
 import { connect } from 'react-redux'
 import { authenticate } from '../actions'
 import { Link as RouterLink } from 'react-router-dom'
+import { makeStyles } from "@material-ui/core/styles";
 
 //  @material-ui/core components
-import { withStyles } from "@material-ui/core/styles";
-import { Typography, TextField, Button, Link } from '@material-ui/core';
+import { Typography, TextField, Button } from '@material-ui/core';
 import styles from '../assets/jss/FormStyles.js'
+import { useForm } from "react-hook-form"
+
+const useStyles = makeStyles(styles);
 
 
-class LoginForm extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.authenticate = (event) => {
-      event.preventDefault()
-      const { email, password } = event.target
-      this.props.authenticate(email.value, password.value)
-    }
+export function LoginForm(props) {
+
+  const classes = useStyles()
+  const { register, handleSubmit, errors } = useForm()
+
+  const onSubmit = data => {
+    props.authenticate(data.email, data.password)
   }
-  
 
-  render() {
-  const { classes } = this.props
-    return (
+  return (
       <div className={classes.container}>
           <Typography component="h1" variant="h4" className={classes.title}>
             Войти
           </Typography>
-          <form className={classes.form} noValidate onSubmit={ this.authenticate}>
+          <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
+              // id="email"
               label="Имя пользователя"
               name="email"
               autoComplete="email"
               autoFocus
               placeholder='valid@email.com'
-              // error
-              // helperText='Поле Имя пользователя должно быть заполнено'
+              inputRef={register({ required : true})}
+              error={errors.email && errors.email.type === 'required'}
+              helperText={errors.email && errors.email.type === 'required' && 'Поле Имя пользователя должно быть заполнено'}
             />
             <TextField
               margin="normal"
@@ -50,10 +49,12 @@ class LoginForm extends Component {
               name="password"
               label="Пароль"
               type="password"
-              id="password"
+              // id="password"
               autoComplete="current-password"
               placeholder='***********'
-              // helperText='Поле Пароль должно быть заполнено'
+              inputRef={register({ required : true})}
+              error={errors.password && errors.password.type === 'required'}
+              helperText={errors.password && errors.password.type === 'required' && 'Поле Пароль должно быть заполнено'}
             />
             <Button
               type="submit"
@@ -77,7 +78,6 @@ class LoginForm extends Component {
             </Typography>
       </div>
     )
-  }
 }
 
 LoginForm.propTypes = {
@@ -85,7 +85,8 @@ LoginForm.propTypes = {
   logIn: PropTypes.func,
 }
 
-export default withStyles(styles)((connect(
+
+export default connect(
   null,
   { authenticate }
-))(LoginForm))
+  )(LoginForm)
