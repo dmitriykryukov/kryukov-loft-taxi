@@ -15,10 +15,6 @@ const useStyles = makeStyles(styles)
 export function Map(props) {
 
   const classes = useStyles()
-
-  console.log('Addresses', props.addresses)
-  console.log('Route', props.route)
-
   const [addressFrom, setAddressFrom] = useState('')
   const [addressTo, setAddressTo] = useState('')
 
@@ -37,7 +33,7 @@ export function Map(props) {
   };
 
   const buildRoute = () => {
-    props.getRouteRequest('Эрмитаж', 'Мариинский театр')
+    props.getRouteRequest(addressFrom, addressTo)
   };
 
   useEffect(() => {
@@ -58,7 +54,7 @@ export function Map(props) {
                 value={addressFrom}
                 onChange={handleChangeFrom}
               >
-                {props.addresses.map((route) =>  <MenuItem key={route} value={route} >{route}</MenuItem>) }
+                {props.addresses.map((route, index) =>  <MenuItem key={route + index} value={route} >{route}</MenuItem>) }
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -69,7 +65,7 @@ export function Map(props) {
                 value={addressTo}
                 onChange={handleChangeTo}
               >
-               {props.addresses.filter(item => item !== addressFrom).map((route) =>  <MenuItem key={route} value={route} >{route}</MenuItem>) }
+               {props.addresses.filter(item => item !== addressFrom).map((route, key) =>  <MenuItem key={route + key} value={route} >{route}</MenuItem>) }
               </Select>
             </FormControl>
           </Container>
