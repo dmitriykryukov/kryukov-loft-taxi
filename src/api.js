@@ -21,24 +21,12 @@ export const serverNewCard = async (cardNumber, expiryDate, cardName, cvc, token
 }
 
 export const getRoute = async (address1, address2) => {
-  return fetch(`https://loft-taxi.glitch.me/route?${address1}&${address2}`, {
-    body: JSON.stringify({ address1, address2 }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "GET",
-  })
+  return fetch(`https://loft-taxi.glitch.me/route?address1=${address1}&address2=${address2}`)
   .then(res => res.json()).then(data => data);
 }
 
-export const getAddressList = async () => {
-  return fetch(`https://loft-taxi.glitch.me/addressList`, {
-    body: JSON.stringify(),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "GET",
-  })
+export const getAddressesList = async () => {
+  return fetch(`https://loft-taxi.glitch.me/addressList`)
   .then(res => res.json()).then(data => data);
 }
 

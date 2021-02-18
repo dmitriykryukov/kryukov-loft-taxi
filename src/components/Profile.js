@@ -6,7 +6,7 @@ import { Paper, Typography, Button, TextField } from '@material-ui/core'
 import symbol from '../assets/images/symbol.svg'
 import chip from '../assets/images/chip.svg'
 import { connect } from 'react-redux'
-import { addNewCard } from '../actions'
+import { addedCard } from '../actions'
 import { DatePicker } from "@material-ui/pickers"
 import { useForm } from "react-hook-form"
 import { NavLink } from 'react-router-dom'
@@ -17,22 +17,19 @@ const useStyles = makeStyles(styles);
 export function ProfilePage(props) {
 
   const { register, handleSubmit } = useForm()
-  console.log(props.isAddedPayment, 'Before')
+  const classes = useStyles()
+  const [cardNumber, setCardNumber] = useState('')
+  const [isAddedPayment, setAddedPayment] = useState(false)
+  const [selectedDate, handleChangeDate] = useState(new Date())
 
   const onSubmit = data => {
-    props.addNewCard(data.cardNumber, data.expiryDate, data.cardName, data.cvc, props.token )
-    console.log(props.isAddedPayment, 'After')
+    props.addedCard(data.cardNumber, data.expiryDate, data.cardName, data.cvc, props.token )
+    setAddedPayment(true)
   }
-
-
-  const [cardNumber, setCardNumber] = useState('')
-  const [selectedDate, handleChangeDate] = useState(new Date())
 
   const handleChange = (event) => {
     setCardNumber(event.target.value)
   }
-
-  const classes = useStyles();
 
   const addCardInfo = (
     <>
@@ -43,12 +40,14 @@ export function ProfilePage(props) {
               <TextField
                 label="Имя владельца"
                 name='cardName'
+                defaultValue={props.cardName}
                 className={classes.textField}
                 inputRef={register({ required: true })}
               />
               <TextField
                 label="Номер карты"
                 name='cardNumber'
+                defaultValue={props.cardNumber}
                 className={classes.textField}
                 onChange={handleChange}
                 inputRef={register({ required: true, pattern: /[0-9]{16}/ })}
@@ -68,6 +67,7 @@ export function ProfilePage(props) {
                 <TextField
                   label="CVC"
                   name='cvc'
+                  defaultValue={props.cvc}
                   inputRef={register({ required: true })} />
               </div>
           </div>
@@ -120,6 +120,7 @@ export function ProfilePage(props) {
           variant="contained"
           color="primary"
           size="large"
+          onClick={() => {setAddedPayment(false)}}
           className={classes.buttonSave}
           disableElevation
           >
@@ -135,15 +136,21 @@ export function ProfilePage(props) {
       <div className={classes.backGround}></div>
         <Paper elevation={1} className={classes.paperProfile}>
             <Typography variant='h4' align='center' style= {{ fontWeight: 700}}>Профиль</Typography>
-            {!props.isAddedPayment && addCardInfo}
-            {props.isAddedPayment && switchOnMap}
+            {!isAddedPayment && addCardInfo}
+            {isAddedPayment && switchOnMap}
         </Paper>
     </div>
   )
 }
 
 
-export default connect((state) => ({ isAddedPayment: state.payment.isAddedPayment, token: state.auth.authToken  }), { addNewCard })(ProfilePage)
+export default connect((state) => ({
+   cardNumber: state.payment.cardNumber,
+   expiryDate: state.payment.expiryDate,
+   cardName: state.payment.cardName,
+   cvc: state.payment.cvc,
+   token: state.auth.authToken,
+   }), { addedCard })(ProfilePage)
 
 
 

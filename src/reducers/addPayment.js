@@ -1,15 +1,24 @@
-import { ADD_CARD } from '../actions'
+import { SAVE_CARD } from '../actions'
 
 const initialState = {
-  isAddedPayment: false
+  cardNumber: null,
+  expiryDate: null, 
+  cardName: null, 
+  cvc: null
+
 }
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case ADD_CARD: {
-      return {isAddedPayment: true}
+    case SAVE_CARD: {
+      return {
+        cardNumber: action.payload.cardNumber,
+        expiryDate: action.payload.expiryDate, 
+        cardName: action.payload.cardName, 
+        cvc: action.payload.cvc
+      }
     }
     default:
-      return state;
+      return state
   }
 }
