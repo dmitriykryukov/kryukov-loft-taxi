@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form"
 
 const useStyles = makeStyles(styles);
 
-
 export function LoginForm(props) {
 
   const classes = useStyles()

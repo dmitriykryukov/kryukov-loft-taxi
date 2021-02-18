@@ -8,6 +8,16 @@ export const serverLogIn = async (email, password) => {
   })
   .then(res => res.json()).then(data => data)
 }
+export const serverRegister = async (email, password, name, surname) => {
+  return fetch(`https://loft-taxi.glitch.me/register`, {
+    body: JSON.stringify({ email, password, name, surname }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  })
+  .then(res => res.json()).then(data => data)
+}
 
 export const serverNewCard = async (cardNumber, expiryDate, cardName, cvc, token ) => {
   return fetch(`https://loft-taxi.glitch.me/card`, {

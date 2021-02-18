@@ -1,16 +1,16 @@
-import auth from './auth'
+import user from './user'
 import {logIn, logOut} from '../actions'
 
-describe("auth", () => {
+describe("user", () => {
   describe("#LOG_IN", () => {
     it('returns isLoggedIn true', () => {
-      expect(auth({}, logIn())).toEqual({isLoggedIn: true})
+      expect(user({}, logIn())).toEqual({isLoggedIn: true})
     })
   })
 
   describe("#LOG_OUT", () => {
     it('returns isLoggedIn false', () => {
-      expect(auth({}, logOut())).toEqual({isLoggedIn: false})
+      expect(user({}, logOut())).toEqual({isLoggedIn: false})
     })
   })
 })

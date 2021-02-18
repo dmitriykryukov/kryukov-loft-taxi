@@ -6,7 +6,6 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-  console.log('Action', action)
   switch (action.type) {
     case GET_ADDRESSES_SUCCESS: {
       return {

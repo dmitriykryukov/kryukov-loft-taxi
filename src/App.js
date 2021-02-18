@@ -29,5 +29,5 @@ App.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
-export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(App)
+export default connect((state) => ({ isLoggedIn: state.user.isLoggedIn }))(App)
 

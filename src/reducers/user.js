@@ -1,8 +1,9 @@
-import { LOG_IN, LOG_OUT  } from '../actions'
+import { LOG_IN, LOG_OUT, USER_REGISTER_SUCCESS  } from '../actions'
 
 const initialState = {
   isLoggedIn: false,
-  authToken: null
+  authToken: null,
+  isRegistered: false
 }
 
 export default function(state = initialState, action) {
@@ -12,6 +13,9 @@ export default function(state = initialState, action) {
     }
     case LOG_OUT: {
       return {isLoggedIn: false}
+    }
+    case USER_REGISTER_SUCCESS: {
+      return { isRegistered: true }
     }
     default:
       return state;

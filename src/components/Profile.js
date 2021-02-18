@@ -149,7 +149,7 @@ export default connect((state) => ({
    expiryDate: state.payment.expiryDate,
    cardName: state.payment.cardName,
    cvc: state.payment.cvc,
-   token: state.auth.authToken,
+   token: state.user.authToken,
    }), { addedCard })(ProfilePage)
 
 

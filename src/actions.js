@@ -7,6 +7,8 @@ export const GET_ADDRESSES_REQUEST = "GET_ADDRESSES_REQUEST"
 export const GET_ADDRESSES_SUCCESS = "GET_ADDRESSES_SUCCESS"
 export const GET_ROUTE_REQUEST = "GET_ROUTE_REQUEST"
 export const GET_ROUTE_SUCCESS = "GET_ROUTE_SUCCESS"
+export const USER_REGISTER_REQUEST = "USER_REGISTER_REQUEST"
+export const USER_REGISTER_SUCCESS = "USER_REGISTER_SUCCESS"
 
 export const logIn = (token) => ({ 
   type: LOG_IN,
@@ -16,6 +18,15 @@ export const logOut = () => ({ type: LOG_OUT })
 export const authenticate = (email, password) => ({
   type: AUTHENTICATE,
   payload: { email, password }
+})
+
+export const onRegister = (email, password, name, surname) => ({
+  type: USER_REGISTER_REQUEST,
+  payload: { email, password, name, surname }
+})
+
+export const userRegistered = () => ({
+  type: USER_REGISTER_SUCCESS
 })
 
 export const addedCard = (cardNumber, expiryDate, cardName, cvc, token) => ({

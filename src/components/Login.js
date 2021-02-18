@@ -51,4 +51,4 @@ Login.propTypes = {
 }
 
 
-  export const LoginWithConnect = withStyles(styles)(connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(Login))
+  export const LoginWithConnect = withStyles(styles)(connect((state) => ({ isLoggedIn: state.user.isLoggedIn }))(Login))
