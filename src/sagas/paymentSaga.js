@@ -1,10 +1,10 @@
 import { ADDED_CARD, saveCard } from "../actions"
-import { serverNewCard } from "../api";
+import { saveNewCard } from "../api";
 import { takeEvery, call, put } from "redux-saga/effects"
 
 export function* addNewPayment(action) {
   const { cardNumber, expiryDate, cardName, cvc, token } = action.payload;
-  const success = yield call(serverNewCard, cardNumber, expiryDate, cardName, cvc, token);
+  const success = yield call(saveNewCard, cardNumber, expiryDate, cardName, cvc, token);
   if (success) {
     yield put(saveCard(cardNumber, expiryDate, cardName, cvc, token))
   }

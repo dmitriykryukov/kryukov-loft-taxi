@@ -12,17 +12,17 @@ import premium from '../assets/images/premium.jpg'
 
 const useStyles = makeStyles(styles)
 
+const PLANS = [
+  { name: 'Стандарт', price: '150P', image: standart, id: 0 },
+  { name: 'Бизнес', price: '250P', image: business, id: 1 },
+  { name: 'Премиум', price: '350P', image: premium, id: 2 },
+ ]
+
 export function Map(props) {
 
   const classes = useStyles()
   const [addressFrom, setAddressFrom] = useState('')
   const [addressTo, setAddressTo] = useState('')
-
-  const PLANS = [
-    { name: 'Стандарт', price: '150P', image: standart, id: 0 },
-    { name: 'Бизнес', price: '250P', image: business, id: 1 },
-    { name: 'Премиум', price: '350P', image: premium, id: 2 },
-   ]
 
   const handleChangeFrom = event => {
     setAddressFrom(event.target.value);
@@ -113,7 +113,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    // getProducts: year => dispatch(getProducts(year))
     getRouteRequest,
     getAddressesList
 }
@@ -122,8 +121,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Map)
-
-// export default connect((state) => ({
-//   addresses: state.map.addresses, route: state.map.route
-//   }), { getAddressesList, getRouteRequest })(Map)
 

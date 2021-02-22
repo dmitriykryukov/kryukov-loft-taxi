@@ -7,7 +7,6 @@ export function* registrationSaga(action) {
   const success = yield call(serverRegister, email, password, name, surname);
   if (success) {
     yield put(userRegistered())
-    console.log('Registration', success)
   }
 }
 
