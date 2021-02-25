@@ -1,5 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
-import { colors } from './Colors'
 
 export default () => {
   return (
@@ -16,7 +14,10 @@ export default () => {
         padding: '60px 44px',
         position: 'absolute',
         transform: 'translate(-50%, -50%)',
-        borderRadius: '10px'
+        borderRadius: '10px',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
       },
       paymentInfo: {
         display: 'flex',

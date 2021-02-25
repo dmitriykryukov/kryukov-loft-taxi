@@ -1,4 +1,3 @@
-import { colors } from './Colors'
 
 export default () => {
   return (

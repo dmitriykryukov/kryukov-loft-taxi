@@ -1,45 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { makeStyles } from "@material-ui/core/styles"
 import styles from '../assets/jss/MapPageStyles.js'
 import { Container, Paper, FormControl, InputLabel, Select, MenuItem, Typography, CardMedia, Button } from '@material-ui/core'
-
-
-
-
+import { getAddressesList, getRouteRequest } from '../actions'
+import { connect } from 'react-redux'
 
 import standart from '../assets/images/standart.jpg'
 import business from '../assets/images/business.jpg'
 import premium from '../assets/images/premium.jpg'
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(styles)
 
-export default function MapPage() {
+const PLANS = [
+  { name: 'Стандарт', price: '150P', image: standart, id: 0 },
+  { name: 'Бизнес', price: '250P', image: business, id: 1 },
+  { name: 'Премиум', price: '350P', image: premium, id: 2 },
+ ]
 
-  const classes = useStyles();
+export function Map(props) {
 
-  const [addressFrom, setAddressFrom] = React.useState('');
-  const [addressTo, setAddressTo] = React.useState('');
+  const classes = useStyles()
+  const [addressFrom, setAddressFrom] = useState('')
+  const [addressTo, setAddressTo] = useState('')
 
   const handleChangeFrom = event => {
     setAddressFrom(event.target.value);
   };
+
   const handleChangeTo = event=> {
     setAddressTo(event.target.value);
   };
 
-  const ROUTES = [
-    { name: 'Пулково (LED)', id: 0 },
-    { name: 'Эрмитаж', id: 1 },
-    { name: 'Кинотеатр Аврора', id: 2 },
-    { name: 'Мариинский театр', id: 3}
-   ]
+  const buildRoute = () => {
+    props.getRouteRequest(addressFrom, addressTo)
+  };
 
-  const PLANS = [
-    { name: 'Стандарт', price: '150P', image: standart, id: 0 },
-    { name: 'Бизнес', price: '250P', image: business, id: 1 },
-    { name: 'Премиум', price: '350P', image: premium, id: 2 },
-   ]
+  useEffect(() => {
+    props.getAddressesList()
+  }, [])
+
 
   return (
     <div className= {classes.wrapper}>
@@ -54,7 +54,7 @@ export default function MapPage() {
                 value={addressFrom}
                 onChange={handleChangeFrom}
               >
-                {ROUTES.map((route) =>  <MenuItem key={route.id} >{route.name}</MenuItem>) }
+                {props.addresses.map((route, index) =>  <MenuItem key={route + index} value={route} >{route}</MenuItem>) }
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -65,7 +65,7 @@ export default function MapPage() {
                 value={addressTo}
                 onChange={handleChangeTo}
               >
-               {ROUTES.map((route) =>  <MenuItem key={route.id} >{route.name}</MenuItem>) }
+               {props.addresses.filter(item => item !== addressFrom).map((route, key) =>  <MenuItem key={route + key} value={route} >{route}</MenuItem>) }
               </Select>
             </FormControl>
           </Container>
@@ -94,8 +94,9 @@ export default function MapPage() {
             size="large"
             className={classes.btnOrder}
             disableElevation
+            onClick={buildRoute}
           >
-            Войти
+            Заказать
           </Button>
         </Paper>
       </Container>
@@ -104,4 +105,20 @@ export default function MapPage() {
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    addresses: state.map.addresses,
+    route: state.map.route
+  }
+}
+
+const mapDispatchToProps = {
+    getRouteRequest,
+    getAddressesList
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Map)
 

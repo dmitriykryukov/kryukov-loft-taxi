@@ -40,7 +40,7 @@ Main.propTypes = {
   isLoggedIn: PropTypes.bool,
 }
 
-  export const MainWithConnect =  withStyles(styles)(connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(Main))
+  export const MainWithConnect =  withStyles(styles)(connect((state) => ({ isLoggedIn: state.user.isLoggedIn }))(Main))
   
 
 
